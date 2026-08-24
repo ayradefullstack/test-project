@@ -14,7 +14,13 @@ import SheetOverlay from "./SheetOverlay.vue"
 
 interface SheetContentProps extends DialogContentProps {
   class?: HTMLAttributes["class"]
-  side?: "top" | "right" | "bottom" | "left"
+  /** "start"/"end" are logical (follow document direction) and should be
+   * preferred over "left"/"right" for any sheet that renders in both LTR and RTL. */
+  side?: "top" | "right" | "bottom" | "left" | "start" | "end"
+  /** Accessible label for the built-in close button. Defaults to English
+   * since most existing callers are English-only; pass a translated string
+   * for any sheet that renders in multiple languages. */
+  closeLabel?: string
 }
 
 defineOptions({
@@ -22,11 +28,12 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<SheetContentProps>(), {
-  side: "right",
+  side: "end",
+  closeLabel: "Close",
 })
 const emits = defineEmits<DialogContentEmits>()
 
-const delegatedProps = reactiveOmit(props, "class", "side")
+const delegatedProps = reactiveOmit(props, "class", "side", "closeLabel")
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
@@ -46,16 +53,20 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
           && 'data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b',
         side === 'bottom'
           && 'data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t',
+        side === 'end'
+          && 'inset-y-0 end-0 h-full w-3/4 border-s sm:max-w-sm ltr:data-[state=closed]:slide-out-to-right ltr:data-[state=open]:slide-in-from-right rtl:data-[state=closed]:slide-out-to-left rtl:data-[state=open]:slide-in-from-left',
+        side === 'start'
+          && 'inset-y-0 start-0 h-full w-3/4 border-e sm:max-w-sm ltr:data-[state=closed]:slide-out-to-left ltr:data-[state=open]:slide-in-from-left rtl:data-[state=closed]:slide-out-to-right rtl:data-[state=open]:slide-in-from-right',
         props.class)"
       v-bind="{ ...$attrs, ...forwarded }"
     >
       <slot />
 
       <DialogClose
-        class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none"
+        class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 end-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none"
       >
         <X class="size-4" />
-        <span class="sr-only">Close</span>
+        <span class="sr-only">{{ closeLabel }}</span>
       </DialogClose>
     </DialogContent>
   </DialogPortal>

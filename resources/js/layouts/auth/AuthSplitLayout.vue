@@ -21,10 +21,10 @@ defineProps<{
         >
             <div class="absolute inset-0 bg-zinc-900" />
             <Link
-                :href="home()"
+                :href="home({ locale: page.props.locale })"
                 class="relative z-20 flex items-center text-lg font-medium"
             >
-                <AppLogoIcon class="mr-2 size-8 fill-current text-white" />
+                <AppLogoIcon class="me-2 size-8 fill-current text-white" />
                 {{ name }}
             </Link>
         </div>

@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { home } from '@/routes';
+
+const page = usePage();
 
 defineProps<{
     title?: string;
@@ -17,7 +19,7 @@ defineProps<{
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col items-center gap-4">
                     <Link
-                        :href="home()"
+                        :href="home({ locale: page.props.locale })"
                         class="flex flex-col items-center gap-2 font-medium"
                     >
                         <div

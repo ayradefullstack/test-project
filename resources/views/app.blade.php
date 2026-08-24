@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  @class(['dark' => ($appearance ?? 'system') == 'dark'])>
+@php
+    $htmlLang = ($locale ?? 'ar') === 'ar' ? 'ar-DZ' : ($locale ?? 'ar');
+@endphp
+<html lang="{{ $htmlLang }}" dir="{{ $direction ?? 'rtl' }}" @class(['dark' => ($appearance ?? 'system') == 'dark'])>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,14 +22,16 @@
             })();
         </script>
 
-        {{-- Inline style to set the HTML background color based on our theme in app.css --}}
+        {{-- Inline style to set the HTML background color based on our theme in app.css
+             Values must match --background in resources/css/app.css exactly, in both
+             modes — this is the only thing painted before Tailwind's CSS loads. --}}
         <style>
             html {
-                background-color: oklch(1 0 0);
+                background-color: #f1f3f5;
             }
 
             html.dark {
-                background-color: oklch(0.145 0 0);
+                background-color: #15130f;
             }
         </style>
 

@@ -48,12 +48,36 @@ const mediaQuery = () => {
     return window.matchMedia('(prefers-color-scheme: dark)');
 };
 
+const getCookie = (name: string): string | null => {
+    if (typeof document === 'undefined') {
+        return null;
+    }
+
+    const match = document.cookie.match(
+        new RegExp('(?:^|; )' + name + '=([^;]*)'),
+    );
+
+    return match ? decodeURIComponent(match[1]) : null;
+};
+
+/**
+ * Falls back to the `appearance` cookie when localStorage is empty. The
+ * server renders the initial `dark` class from that same cookie (see
+ * HandleAppearance middleware) — without this fallback, a visitor with the
+ * cookie set but no matching localStorage entry (cleared storage, a synced
+ * cookie on a new device, etc.) sees the correct theme at first paint and
+ * then has it stripped the moment this module runs, reproducing exactly the
+ * flash Phase 2 was meant to prevent.
+ */
 const getStoredAppearance = () => {
     if (typeof window === 'undefined') {
         return null;
     }
 
-    return localStorage.getItem('appearance') as Appearance | null;
+    return (
+        (localStorage.getItem('appearance') as Appearance | null) ??
+        (getCookie('appearance') as Appearance | null)
+    );
 };
 
 const prefersDark = (): boolean => {
@@ -87,9 +111,7 @@ const appearance = ref<Appearance>('system');
 
 export function useAppearance(): UseAppearanceReturn {
     onMounted(() => {
-        const savedAppearance = localStorage.getItem(
-            'appearance',
-        ) as Appearance | null;
+        const savedAppearance = getStoredAppearance();
 
         if (savedAppearance) {
             appearance.value = savedAppearance;
