@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
+import { Mail, Lock, ArrowRight } from '@lucide/vue';
+import { useI18n } from 'vue-i18n';
 import InputError from '@/components/InputError.vue';
 import PasskeyVerify from '@/components/PasskeyVerify.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
@@ -13,12 +15,7 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 
-defineOptions({
-    layout: {
-        title: 'Log in to your account',
-        description: 'Enter your email and password below to log in',
-    },
-});
+const { t } = useI18n();
 
 defineProps<{
     status?: string;
@@ -27,49 +24,65 @@ defineProps<{
 </script>
 
 <template>
-    <Head title="Log in" />
+    <Head :title="t('auth.loginTitle')" />
 
+    <!-- Status Notice (e.g. after password reset) -->
     <div
         v-if="status"
-        class="mb-4 text-center text-sm font-medium text-green-600"
+        class="mb-6 rounded-2xl border border-emerald-500/20 bg-emerald-50 p-4 text-center text-xs font-semibold text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-950/50 dark:text-emerald-300"
     >
         {{ status }}
     </div>
 
-    <PasskeyVerify />
+    <!-- Passkey Biometric Sign In -->
+    <PasskeyVerify 
+        :label="t('auth.passkeyPrompt')"
+        :loading-label="t('auth.authenticating')"
+        :separator="t('auth.orEmail')"
+    />
 
+    <!-- Standard Email / Password Form -->
     <Form
         v-bind="store.form()"
         :reset-on-success="['password']"
         v-slot="{ errors, processing }"
-        class="flex flex-col gap-6"
+        class="flex flex-col gap-5"
     >
-        <div class="grid gap-6">
-            <div class="grid gap-2">
-                <Label for="email">Email address</Label>
-                <Input
-                    id="email"
-                    type="email"
-                    name="email"
-                    required
-                    autofocus
-                    :tabindex="1"
-                    autocomplete="email"
-                    placeholder="email@example.com"
-                />
+        <div class="space-y-4">
+            <!-- Email Field -->
+            <div class="space-y-1.5 text-start">
+                <Label for="email" class="text-xs font-semibold text-foreground">
+                    {{ t('auth.email') }}
+                </Label>
+                <div class="relative">
+                    <Input
+                        id="email"
+                        type="email"
+                        name="email"
+                        required
+                        autofocus
+                        :tabindex="1"
+                        autocomplete="email"
+                        placeholder="author@onda.dz"
+                        class="h-11 rounded-xl border-input bg-background ps-4 pe-4 text-sm focus:border-onda-blue-600 focus:ring-2 focus:ring-onda-blue-600/20 transition-all"
+                    />
+                </div>
                 <InputError :message="errors.email" />
             </div>
 
-            <div class="grid gap-2">
+            <!-- Password Field -->
+            <div class="space-y-1.5 text-start">
                 <div class="flex items-center justify-between">
-                    <Label for="password">Password</Label>
+                    <Label for="password" class="text-xs font-semibold text-foreground">
+                        {{ t('auth.password') }}
+                    </Label>
                     <TextLink
                         v-if="canResetPassword"
                         :href="request()"
-                        class="text-sm"
+                        class="text-xs font-medium text-onda-blue-600 hover:text-onda-blue-700 dark:text-onda-blue-400"
                         :tabindex="5"
                     >
-                        Forgot your password?
+                        {{ t('auth.forgotPassword') }}
                     </TextLink>
                 </div>
                 <PasswordInput
@@ -78,33 +91,46 @@ defineProps<{
                     required
                     :tabindex="2"
                     autocomplete="current-password"
-                    placeholder="Password"
+                    :placeholder="t('auth.passwordPlaceholder')"
+                    class="h-11 rounded-xl border-input bg-background text-sm focus:border-onda-blue-600 focus:ring-2 focus:ring-onda-blue-600/20 transition-all"
                 />
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="flex items-center justify-between">
-                <Label for="remember" class="flex items-center space-x-3">
+            <!-- Remember Me -->
+            <div class="flex items-center justify-between pt-1">
+                <label for="remember" class="flex items-center gap-2.5 text-xs text-muted-foreground cursor-pointer select-none">
                     <Checkbox id="remember" name="remember" :tabindex="3" />
-                    <span>Remember me</span>
-                </Label>
+                    <span>{{ t('auth.rememberMe') }}</span>
+                </label>
             </div>
 
+            <!-- Submit Button (ONDA Royal Blue) -->
             <Button
                 type="submit"
-                class="mt-4 w-full"
+                class="mt-3 h-12 w-full rounded-xl bg-onda-blue-600 text-sm font-semibold text-white shadow-lg shadow-onda-blue-600/25 transition-all hover:bg-onda-blue-700 hover:shadow-onda-blue-600/40 dark:bg-onda-blue-500 dark:hover:bg-onda-blue-400 cursor-pointer"
                 :tabindex="4"
                 :disabled="processing"
                 data-test="login-button"
             >
                 <Spinner v-if="processing" />
-                Log in
+                <span v-else class="flex items-center justify-center gap-2">
+                    <span>{{ t('auth.signInBtn') }}</span>
+                    <ArrowRight class="size-4 rtl:rotate-180" />
+                </span>
             </Button>
         </div>
 
-        <div class="text-center text-sm text-muted-foreground">
-            Don't have an account?
-            <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
+        <!-- Register Link -->
+        <div class="mt-4 border-t border-border pt-5 text-center text-xs text-muted-foreground">
+            <span>{{ t('auth.noAccount') }} </span>
+            <TextLink 
+                :href="register()" 
+                class="font-semibold text-onda-teal-600 hover:text-onda-teal-700 dark:text-onda-teal-400"
+                :tabindex="6"
+            >
+                {{ t('auth.createAccount') }}
+            </TextLink>
         </div>
     </Form>
 </template>

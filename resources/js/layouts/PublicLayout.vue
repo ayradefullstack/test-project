@@ -1,6 +1,18 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { Menu } from '@lucide/vue';
+import { 
+    Menu, 
+    Phone, 
+    Sparkles, 
+    FileText, 
+    Building2, 
+    Mail, 
+    MapPin, 
+    ShieldCheck, 
+    ExternalLink, 
+    Search,
+    ChevronRight
+} from '@lucide/vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LanguageSwitcher from '@/components/public/LanguageSwitcher.vue';
@@ -30,59 +42,122 @@ const mobileMenuOpen = ref(false);
 <template>
     <a
         href="#main-content"
-        class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:start-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
+        class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:start-4 focus:z-50 focus:rounded-md focus:bg-onda-blue-600 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
     >
         {{ t('nav.skipToContent') }}
     </a>
 
-    <div class="flex min-h-screen flex-col bg-background text-foreground">
-        <header class="sticky top-0 z-40 border-b border-border bg-background">
-            <div
-                class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
-            >
+    <div class="flex min-h-screen flex-col bg-background text-foreground selection:bg-onda-blue-600 selection:text-white">
+        
+        <!-- 1. TOP INSTITUTIONAL ANNOUNCEMENT BAR -->
+        <aside class="relative z-50 border-b border-onda-blue-900/30 bg-gradient-to-r from-onda-blue-900 via-onda-blue-800 to-onda-teal-900 text-white text-xs py-2 px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto flex max-w-7xl items-center justify-between gap-4">
+                <!-- Announcement Notice -->
+                <div class="flex items-center gap-2 overflow-hidden truncate">
+                    <span class="inline-flex items-center rounded-full bg-onda-teal-500/25 px-2.5 py-0.5 text-[11px] font-semibold text-onda-teal-200 border border-onda-teal-400/30 shrink-0">
+                        {{ t('announcement.badge') }}
+                    </span>
+                    <span class="truncate text-slate-200 text-xs">
+                        {{ t('announcement.text') }}
+                    </span>
+                </div>
+
+                <!-- Right Utility Bar: Hotline & Quick Lang -->
+                <div class="hidden items-center gap-6 md:flex shrink-0">
+                    <a 
+                        href="tel:+21321741234" 
+                        class="flex items-center gap-1.5 text-xs text-onda-blue-100 hover:text-white transition-colors"
+                        title="Assistance Téléphonique"
+                    >
+                        <Phone class="size-3.5 text-onda-teal-400" />
+                        <span>{{ t('announcement.hotline') }}</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 2. STICKY MAIN NAVBAR -->
+        <header class="sticky top-0 z-40 border-b border-border/80 bg-background/85 backdrop-blur-md transition-colors">
+            <div class="mx-auto flex h-18 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+                
+                <!-- Brand Logo -->
                 <Link
                     :href="home({ locale: page.props.locale })"
-                    class="flex items-center"
+                    class="flex items-center gap-3 group transition-transform duration-200 hover:scale-[1.01]"
                 >
-                    <OrgLogo class="h-8 w-auto sm:h-9" />
+                    <OrgLogo class="h-9 w-auto sm:h-11 object-contain drop-shadow-sm" />
                 </Link>
 
+                <!-- Navigation Links -->
                 <nav
-                    class="hidden items-center gap-6 md:flex"
+                    class="hidden items-center gap-7 lg:flex"
                     :aria-label="t('nav.menu')"
                 >
                     <Link
                         :href="home({ locale: page.props.locale })"
-                        class="text-sm font-medium text-foreground hover:text-seal"
+                        class="text-sm font-semibold text-foreground transition-colors hover:text-onda-blue-600 dark:hover:text-onda-blue-400"
                     >
                         {{ t('nav.home') }}
                     </Link>
+
+                    <a
+                        href="#services"
+                        class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:text-onda-blue-600 dark:hover:text-onda-blue-400"
+                    >
+                        {{ t('nav.services') }}
+                    </a>
+
+                    <a
+                        href="#repertoire"
+                        class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:text-onda-blue-600 dark:hover:text-onda-blue-400"
+                    >
+                        {{ t('nav.repertoire') }}
+                    </a>
+
+                    <a
+                        href="#actualites"
+                        class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:text-onda-blue-600 dark:hover:text-onda-blue-400"
+                    >
+                        {{ t('news.heading') }}
+                    </a>
+
+                    <a
+                        href="#contact"
+                        class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:text-onda-blue-600 dark:hover:text-onda-blue-400"
+                    >
+                        {{ t('nav.contact') }}
+                    </a>
                 </nav>
 
-                <div class="hidden items-center gap-2 md:flex">
+                <!-- Right Action Center -->
+                <div class="hidden items-center gap-3 md:flex">
                     <LanguageSwitcher />
                     <ThemeToggle />
 
-                    <template v-if="page.props.auth.user">
+                    <div class="h-5 w-px bg-border mx-1" />
+
+                    <!-- User Account / Auth Buttons -->
+                    <template v-if="page.props.auth?.user">
                         <DropdownMenu>
                             <DropdownMenuTrigger
-                                class="ms-2 inline-flex items-center rounded-md border border-border px-3 py-1.5 text-sm font-medium hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                                class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-3.5 py-2 text-sm font-semibold hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none transition-colors"
                                 :aria-label="t('nav.userMenu')"
                             >
-                                {{ page.props.auth.user.name }}
+                                <span class="size-2 rounded-full bg-onda-teal-500" />
+                                <span>{{ page.props.auth.user.name }}</span>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
+                            <DropdownMenuContent align="end" class="w-48">
                                 <DropdownMenuItem as-child>
-                                    <Link :href="dashboard()">{{
-                                        t('nav.dashboard')
-                                    }}</Link>
+                                    <Link :href="dashboard()">
+                                        {{ t('nav.dashboard') }}
+                                    </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem as-child>
                                     <Link
                                         :href="logout()"
                                         method="post"
                                         as="button"
-                                        class="w-full text-start"
+                                        class="w-full text-start text-destructive"
                                     >
                                         {{ t('nav.signOut') }}
                                     </Link>
@@ -93,135 +168,236 @@ const mobileMenuOpen = ref(false);
                     <template v-else>
                         <Link
                             :href="login()"
-                            class="ms-2 text-sm font-medium hover:text-seal"
+                            class="rounded-xl px-3.5 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-accent hover:text-onda-blue-600 dark:hover:text-onda-blue-400"
                         >
                             {{ t('nav.signIn') }}
                         </Link>
+                        
+                        <!-- E-Portail CTA Button (ONDA Teal) -->
                         <Link
                             :href="register()"
-                            class="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                            class="inline-flex items-center gap-2 rounded-xl bg-onda-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-onda-teal-600/25 transition-all duration-200 hover:bg-onda-teal-700 hover:shadow-onda-teal-600/40 dark:bg-onda-teal-500 dark:hover:bg-onda-teal-400"
                         >
-                            {{ t('nav.createAccount') }}
+                            <Sparkles class="size-4 text-onda-teal-100" />
+                            <span>{{ t('nav.eportal') }}</span>
                         </Link>
                     </template>
                 </div>
 
-                <Sheet v-model:open="mobileMenuOpen">
-                    <SheetTrigger
-                        class="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none md:hidden"
-                        :aria-label="t('nav.openMenu')"
-                    >
-                        <Menu class="size-5" />
-                    </SheetTrigger>
-                    <SheetContent
-                        side="end"
-                        :close-label="t('nav.closeMenu')"
-                        class="flex w-4/5 flex-col gap-6 sm:max-w-xs"
-                    >
-                        <SheetHeader>
-                            <SheetTitle class="text-start">{{
-                                t('nav.menu')
-                            }}</SheetTitle>
-                        </SheetHeader>
-
-                        <nav
-                            class="flex flex-col gap-1"
-                            :aria-label="t('nav.menu')"
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center gap-2 lg:hidden">
+                    <LanguageSwitcher />
+                    <ThemeToggle />
+                    <Sheet v-model:open="mobileMenuOpen">
+                        <SheetTrigger
+                            class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card text-foreground hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                            :aria-label="t('nav.openMenu')"
                         >
-                            <SheetClose as-child>
-                                <Link
-                                    :href="home({ locale: page.props.locale })"
-                                    class="rounded-md px-3 py-2 text-sm font-medium hover:bg-accent"
-                                >
-                                    {{ t('nav.home') }}
-                                </Link>
-                            </SheetClose>
-                        </nav>
+                            <Menu class="size-5" />
+                        </SheetTrigger>
+                        <SheetContent
+                            side="end"
+                            :close-label="t('nav.closeMenu')"
+                            class="flex w-4/5 flex-col gap-6 sm:max-w-xs"
+                        >
+                            <SheetHeader>
+                                <SheetTitle class="text-start flex items-center gap-2">
+                                    <OrgLogo class="h-8 w-auto" />
+                                </SheetTitle>
+                            </SheetHeader>
 
-                        <div class="flex items-center gap-2">
-                            <LanguageSwitcher />
-                            <ThemeToggle />
-                        </div>
+                            <nav
+                                class="flex flex-col gap-1.5"
+                                :aria-label="t('nav.menu')"
+                            >
+                                <SheetClose as-child>
+                                    <Link
+                                        :href="home({ locale: page.props.locale })"
+                                        class="rounded-xl px-3.5 py-2.5 text-sm font-semibold hover:bg-accent hover:text-onda-blue-600"
+                                    >
+                                        {{ t('nav.home') }}
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose as-child>
+                                    <a
+                                        href="#services"
+                                        class="rounded-xl px-3.5 py-2.5 text-sm font-medium hover:bg-accent"
+                                    >
+                                        {{ t('nav.services') }}
+                                    </a>
+                                </SheetClose>
+                                <SheetClose as-child>
+                                    <a
+                                        href="#repertoire"
+                                        class="rounded-xl px-3.5 py-2.5 text-sm font-medium hover:bg-accent"
+                                    >
+                                        {{ t('nav.repertoire') }}
+                                    </a>
+                                </SheetClose>
+                                <SheetClose as-child>
+                                    <a
+                                        href="#actualites"
+                                        class="rounded-xl px-3.5 py-2.5 text-sm font-medium hover:bg-accent"
+                                    >
+                                        {{ t('news.heading') }}
+                                    </a>
+                                </SheetClose>
+                                <SheetClose as-child>
+                                    <a
+                                        href="#contact"
+                                        class="rounded-xl px-3.5 py-2.5 text-sm font-medium hover:bg-accent"
+                                    >
+                                        {{ t('nav.contact') }}
+                                    </a>
+                                </SheetClose>
+                            </nav>
 
-                        <div class="mt-auto flex flex-col gap-2">
-                            <template v-if="page.props.auth.user">
-                                <SheetClose as-child>
+                            <div class="mt-auto flex flex-col gap-2.5 pt-6 border-t border-border">
+                                <template v-if="page.props.auth?.user">
+                                    <SheetClose as-child>
+                                        <Link
+                                            :href="dashboard()"
+                                            class="rounded-xl border border-border px-3.5 py-2.5 text-center text-sm font-semibold hover:bg-accent"
+                                        >
+                                            {{ t('nav.dashboard') }}
+                                        </Link>
+                                    </SheetClose>
                                     <Link
-                                        :href="dashboard()"
-                                        class="rounded-md border border-border px-3 py-2 text-center text-sm font-medium hover:bg-accent"
+                                        :href="logout()"
+                                        method="post"
+                                        as="button"
+                                        class="rounded-xl px-3.5 py-2.5 text-center text-sm font-semibold text-destructive hover:bg-destructive/10"
                                     >
-                                        {{ t('nav.dashboard') }}
+                                        {{ t('nav.signOut') }}
                                     </Link>
-                                </SheetClose>
-                                <Link
-                                    :href="logout()"
-                                    method="post"
-                                    as="button"
-                                    class="rounded-md px-3 py-2 text-center text-sm font-medium hover:bg-accent"
-                                >
-                                    {{ t('nav.signOut') }}
-                                </Link>
-                            </template>
-                            <template v-else>
-                                <SheetClose as-child>
-                                    <Link
-                                        :href="login()"
-                                        class="rounded-md border border-border px-3 py-2 text-center text-sm font-medium hover:bg-accent"
-                                    >
-                                        {{ t('nav.signIn') }}
-                                    </Link>
-                                </SheetClose>
-                                <SheetClose as-child>
-                                    <Link
-                                        :href="register()"
-                                        class="rounded-md bg-primary px-3 py-2 text-center text-sm font-medium text-primary-foreground hover:bg-primary/90"
-                                    >
-                                        {{ t('nav.createAccount') }}
-                                    </Link>
-                                </SheetClose>
-                            </template>
-                        </div>
-                    </SheetContent>
-                </Sheet>
+                                </template>
+                                <template v-else>
+                                    <SheetClose as-child>
+                                        <Link
+                                            :href="login()"
+                                            class="rounded-xl border border-border px-3.5 py-2.5 text-center text-sm font-semibold hover:bg-accent"
+                                        >
+                                            {{ t('nav.signIn') }}
+                                        </Link>
+                                    </SheetClose>
+                                    <SheetClose as-child>
+                                        <Link
+                                            :href="register()"
+                                            class="rounded-xl bg-onda-teal-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white hover:bg-onda-teal-700"
+                                        >
+                                            {{ t('nav.eportal') }}
+                                        </Link>
+                                    </SheetClose>
+                                </template>
+                            </div>
+                        </SheetContent>
+                    </Sheet>
+                </div>
+
             </div>
         </header>
 
+        <!-- 3. MAIN APP CONTENT -->
         <main id="main-content" class="flex-1">
             <slot />
         </main>
 
-        <footer class="border-t border-border bg-background">
-            <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-                <div
-                    class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between"
-                >
-                    <OrgLogo class="h-8 w-auto" />
+        <!-- 4. INSTITUTIONAL TRILINGUAL FOOTER -->
+        <footer id="contact" class="border-t border-border bg-slate-900 text-slate-300 dark:bg-slate-950">
+            <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 gap-12 lg:grid-cols-12">
+                    
+                    <!-- Column 1: Institutional Overview -->
+                    <div class="space-y-4 lg:col-span-4">
+                        <div class="flex items-center gap-3">
+                            <OrgLogo class="h-10 w-auto brightness-0 invert" />
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+                            {{ t('footer.aboutText') }}
+                        </p>
+                        <div class="inline-flex items-center gap-2 rounded-xl bg-slate-800/80 border border-slate-700 px-3 py-1.5 text-xs text-onda-teal-400">
+                            <ShieldCheck class="size-4" />
+                            <span>{{ t('hero.trust3') }}</span>
+                        </div>
+                    </div>
 
-                    <nav
-                        class="flex flex-col gap-2 text-sm"
-                        :aria-label="t('nav.menu')"
-                    >
-                        <Link
-                            :href="home({ locale: page.props.locale })"
-                            class="text-muted-foreground hover:text-foreground"
-                        >
-                            {{ t('nav.home') }}
-                        </Link>
-                    </nav>
+                    <!-- Column 2: Quick Links -->
+                    <div class="space-y-3 lg:col-span-2">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-white">
+                            {{ t('footer.quickLinks') }}
+                        </h4>
+                        <ul class="space-y-2 text-xs">
+                            <li>
+                                <a href="#services" class="hover:text-onda-blue-400 transition-colors">
+                                    {{ t('nav.services') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#repertoire" class="hover:text-onda-blue-400 transition-colors">
+                                    {{ t('nav.repertoire') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#actualites" class="hover:text-onda-blue-400 transition-colors">
+                                    {{ t('news.heading') }}
+                                </a>
+                            </li>
+                            <li>
+                                <Link :href="register()" class="hover:text-onda-teal-400 transition-colors">
+                                    {{ t('nav.eportal') }}
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Legal & Regulatory -->
+                    <div class="space-y-3 lg:col-span-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-white">
+                            {{ t('footer.legal') }}
+                        </h4>
+                        <ul class="space-y-2 text-xs text-slate-400">
+                            <li>{{ t('footer.legal1') }}</li>
+                            <li>{{ t('footer.legal2') }}</li>
+                            <li>{{ t('footer.legal3') }}</li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Contact & Agences -->
+                    <div class="space-y-3 lg:col-span-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-white">
+                            {{ t('footer.contactUs') }}
+                        </h4>
+                        <div class="space-y-2.5 text-xs text-slate-400">
+                            <div class="flex items-start gap-2">
+                                <MapPin class="size-4 text-onda-blue-400 shrink-0 mt-0.5" />
+                                <span>{{ t('footer.address') }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <Phone class="size-4 text-onda-teal-400 shrink-0" />
+                                <a href="tel:+21321741234" class="hover:text-white transition-colors font-mono">
+                                    +213 (0) 21 74 12 34
+                                </a>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <Mail class="size-4 text-onda-blue-400 shrink-0" />
+                                <a href="mailto:contact@onda.dz" class="hover:text-white transition-colors font-mono">
+                                    contact@onda.dz
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <p class="mt-8 max-w-2xl text-sm text-muted-foreground">
-                    {{ t('footer.storageNotice') }}
-                </p>
-
-                <p class="mt-4 font-mono text-xs text-muted-foreground">
-                    {{
-                        t('footer.copyright', {
-                            year: new Date().getFullYear(),
-                        })
-                    }}
-                </p>
+                <!-- Footer Bottom Divider & Legal Mentions -->
+                <div class="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                    <p>{{ t('footer.storageNotice') }}</p>
+                    <p class="font-mono text-[11px]">
+                        {{ t('footer.copyright', { year: new Date().getFullYear() }) }}
+                    </p>
+                </div>
             </div>
         </footer>
+
     </div>
 </template>

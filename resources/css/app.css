@@ -13,11 +13,42 @@
         'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas,
         monospace;
 
-    /* ONDA brand ramp — see design plan for measured contrast ratios */
+    /* ONDA Primary Brand Scale — Royal Blue (#1B669D) */
+    --color-onda-blue-50: #F0F7FC;
+    --color-onda-blue-100: #D9ECF7;
+    --color-onda-blue-200: #B5DCF0;
+    --color-onda-blue-300: #82C2E4;
+    --color-onda-blue-400: #4BA4D5;
+    --color-onda-blue-500: #2587C0;
+    --color-onda-blue-600: #1B669D;
+    --color-onda-blue-700: #16517D;
+    --color-onda-blue-800: #154467;
+    --color-onda-blue-900: #163A55;
+    --color-onda-blue-950: #0E2538;
+
+    /* ONDA Secondary Brand Scale — Emerald Teal (#1C9976) */
+    --color-onda-teal-50: #EEFBF7;
+    --color-onda-teal-100: #D5F6EB;
+    --color-onda-teal-200: #B0EEDB;
+    --color-onda-teal-300: #7DE1C5;
+    --color-onda-teal-400: #45CEAA;
+    --color-onda-teal-500: #25B48D;
+    --color-onda-teal-600: #1C9976;
+    --color-onda-teal-700: #187A5F;
+    --color-onda-teal-800: #17614D;
+    --color-onda-teal-900: #165041;
+    --color-onda-teal-950: #082D24;
+
+    /* ONDA brand ramp backward compatibility */
     --color-seal: #1b669d;
     --color-seal-strong: #134b75;
     --color-seal-soft: #8cbbe0;
     --color-signal: #1c9976;
+
+    /* Elevation & Shadows */
+    --shadow-onda-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(226, 232, 240, 0.8);
+    --shadow-onda-glow-blue: 0 0 35px -5px rgba(27, 102, 157, 0.35);
+    --shadow-onda-glow-teal: 0 0 35px -5px rgba(28, 153, 118, 0.35);
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
