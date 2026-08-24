@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\View;
+use Symfony\Component\HttpFoundation\Cookie as CookieValueObject;
 use Symfony\Component\HttpFoundation\Response;
 
 class SetLocale
@@ -47,7 +48,7 @@ class SetLocale
         View::share('direction', $direction);
 
         if ($routeLocale !== null) {
-            Cookie::queue('locale', $locale, 60 * 24 * 365);
+            Cookie::queue($this->localeCookie($locale));
         }
 
         return $next($request);
@@ -60,5 +61,22 @@ class SetLocale
         return in_array($cookieLocale, self::SUPPORTED_LOCALES, true)
             ? $cookieLocale
             : self::FALLBACK_LOCALE;
+    }
+
+    /**
+     * `httpOnly: false` is deliberate: the language switcher applies a locale
+     * change instantly client-side (no round trip) and persists it by writing
+     * this same cookie directly via `document.cookie`. An httpOnly cookie
+     * (Laravel's default) would silently block that write, so the next full
+     * page load would revert to whatever locale was last set server-side.
+     */
+    public static function localeCookie(string $locale): CookieValueObject
+    {
+        return Cookie::make(
+            name: 'locale',
+            value: $locale,
+            minutes: 60 * 24 * 365,
+            httpOnly: false,
+        );
     }
 }

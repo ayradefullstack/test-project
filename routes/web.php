@@ -1,9 +1,14 @@
 <?php
 
+use App\Http\Controllers\LocaleController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/'.SetLocale::FALLBACK_LOCALE);
+
+Route::get('locale/{locale}', LocaleController::class)
+    ->where(['locale' => implode('|', SetLocale::SUPPORTED_LOCALES)])
+    ->name('locale.switch');
 
 Route::prefix('{locale}')
     ->where(['locale' => implode('|', SetLocale::SUPPORTED_LOCALES)])

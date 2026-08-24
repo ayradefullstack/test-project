@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import { 
     ArrowLeft, 
     ShieldCheck, 
@@ -13,8 +13,7 @@ import OrgLogo from '@/components/public/OrgLogo.vue';
 import ThemeToggle from '@/components/public/ThemeToggle.vue';
 import { home } from '@/routes';
 
-const { t } = useI18n();
-const page = usePage();
+const { t, locale } = useI18n();
 
 defineProps<{
     title?: string;
@@ -29,7 +28,7 @@ defineProps<{
         <header class="relative z-30 flex items-center justify-between px-6 py-4 lg:px-12">
             <!-- Back to Home Link -->
             <Link
-                :href="home({ locale: page.props.locale })"
+                :href="home({ locale })"
                 class="inline-flex items-center gap-2 rounded-xl border border-border/80 bg-card/80 px-3.5 py-1.5 text-xs font-semibold text-foreground shadow-xs backdrop-blur-md transition-all hover:bg-accent hover:text-onda-blue-600 dark:hover:text-onda-blue-400"
             >
                 <ArrowLeft class="size-3.5 rtl:rotate-180" />
@@ -55,7 +54,7 @@ defineProps<{
 
                 <!-- Top Brand Area -->
                 <div class="relative z-10 space-y-6">
-                    <Link :href="home({ locale: page.props.locale })" class="inline-block">
+                    <Link :href="home({ locale })" class="inline-block">
                         <OrgLogo class="h-12 w-auto brightness-0 invert drop-shadow-md" />
                     </Link>
 
@@ -112,7 +111,7 @@ defineProps<{
                         
                         <!-- Mobile Brand Logo -->
                         <div class="mb-6 flex justify-center lg:hidden">
-                            <Link :href="home({ locale: page.props.locale })">
+                            <Link :href="home({ locale })">
                                 <OrgLogo class="h-10 w-auto" />
                             </Link>
                         </div>

@@ -34,7 +34,7 @@ import {
 } from '@/components/ui/sheet';
 import { dashboard, home, login, logout, register } from '@/routes';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const page = usePage();
 const mobileMenuOpen = ref(false);
 </script>
@@ -82,7 +82,7 @@ const mobileMenuOpen = ref(false);
                 
                 <!-- Brand Logo -->
                 <Link
-                    :href="home({ locale: page.props.locale })"
+                    :href="home({ locale })"
                     class="flex items-center gap-3 group transition-transform duration-200 hover:scale-[1.01]"
                 >
                     <OrgLogo class="h-9 w-auto sm:h-11 object-contain drop-shadow-sm" />
@@ -94,7 +94,7 @@ const mobileMenuOpen = ref(false);
                     :aria-label="t('nav.menu')"
                 >
                     <Link
-                        :href="home({ locale: page.props.locale })"
+                        :href="home({ locale })"
                         class="text-sm font-semibold text-foreground transition-colors hover:text-onda-blue-600 dark:hover:text-onda-blue-400"
                     >
                         {{ t('nav.home') }}
@@ -212,7 +212,7 @@ const mobileMenuOpen = ref(false);
                             >
                                 <SheetClose as-child>
                                     <Link
-                                        :href="home({ locale: page.props.locale })"
+                                        :href="home({ locale })"
                                         class="rounded-xl px-3.5 py-2.5 text-sm font-semibold hover:bg-accent hover:text-onda-blue-600"
                                     >
                                         {{ t('nav.home') }}
