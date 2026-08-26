@@ -190,6 +190,18 @@
     "auth.searchCountry": "ابحث عن بلد...",
     "auth.searchWilaya": "ابحث عن ولاية...",
     "auth.searchCommune": "ابحث عن بلدية...",
+    "auth.forgotPasswordTitle": "نسيت كلمة المرور؟",
+    "auth.forgotPasswordDesc": "أدخل بريدك الإلكتروني لتلقي رابط إعادة تعيين كلمة المرور بشكل آمن.",
+    "auth.sendResetLinkBtn": "إرسال رابط إعادة تعيين كلمة المرور",
+    "auth.sendingResetLink": "جاري إرسال الرابط...",
+    "auth.backToLogin": "تسجيل الدخول",
+    "auth.orReturnToLogin": "أو، العودة إلى",
+    "auth.resetPasswordTitle": "إعادة تعيين كلمة المرور",
+    "auth.resetPasswordDesc": "يرجى تعيين كلمة مرور جديدة وآمنة لحسابك.",
+    "auth.newPassword": "كلمة المرور الجديدة",
+    "auth.confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "auth.resetPasswordBtn": "تحديث وتثبيت كلمة المرور",
+    "auth.resettingPassword": "جاري التحديث...",
     "common.noResults": "لا توجد نتائج مطابقة",
     "common.search": "بحث..."
 }

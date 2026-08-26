@@ -38,11 +38,12 @@ Implemented in [`Register.vue`](file:///C:/Herd/test-project/resources/js/pages/
    - **Email Address (`email`):** Always enforced **LTR (`dir="ltr" text-left`)**.
    - **Phone Number (`phone`):** Enforced **LTR (`dir="ltr" text-left font-mono`)** with the country dialing prefix badge locked to the left, and **automatic 2-digit spacing** (e.g. `05 49 02 04 55`).
    - **Passwords (`password`, `password_confirmation`):** Enforced **LTR (`dir="ltr" text-left font-mono")**.
-5. **Dynamic Country & Location Rules:**
-   - **Default Country:** Pre-selected to **Algeria (`DZ` / `+213`)**.
-   - **Wilaya & Commune Defaults:** Default to **`null`** with explicit placeholder prompt (`Sélectionner une wilaya...` / `Sélectionner une commune...`).
-   - **When Wilaya is Picked:** Dynamically loads that Wilaya's searchable communes without auto-selecting one, allowing the user to select their municipality explicitly.
-   - **When Foreign Country is Selected (e.g., France `+33`):** Wilaya & Commune dropdowns are hidden and replaced by free-text **City / Town** input.
+6. **Forgot Password & Reset Password Pages (`ForgotPassword.vue` & `ResetPassword.vue`):**
+   - **Full Multilingual Translations:** Complete translations in French, Arabic (RTL), and English across headers, descriptions, labels, button labels, and loading states.
+   - **Always-LTR Inputs:** Email, passwords, and tokens are locked to **`dir="ltr" text-left`** even in Arabic mode.
+   - **Glowing Animated Inputs:** Styled with `.input-premium` animated borders and focus illumination rings.
+   - **Animated Submit Loading Button:** Gradient submit button displaying real-time `<Spinner />` animation and localized text (`Sending reset link...` / `جاري إرسال الرابط...` / `Envoi du lien en cours...`) during form processing.
+   - **Seamless Navigation:** Returns to login preserving the active locale.
 
 ---
 

@@ -190,6 +190,18 @@
     "auth.searchCountry": "Rechercher un pays...",
     "auth.searchWilaya": "Rechercher une wilaya...",
     "auth.searchCommune": "Rechercher une commune...",
+    "auth.forgotPasswordTitle": "Mot de passe oublié ?",
+    "auth.forgotPasswordDesc": "Entrez votre adresse email pour recevoir un lien de réinitialisation sécurisé.",
+    "auth.sendResetLinkBtn": "Envoyer le lien de réinitialisation",
+    "auth.sendingResetLink": "Envoi du lien en cours...",
+    "auth.backToLogin": "Retour à la connexion",
+    "auth.orReturnToLogin": "Ou, retourner à",
+    "auth.resetPasswordTitle": "Réinitialisation du mot de passe",
+    "auth.resetPasswordDesc": "Veuillez définir un nouveau mot de passe sécurisé pour votre compte.",
+    "auth.newPassword": "Nouveau mot de passe",
+    "auth.confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "auth.resetPasswordBtn": "Mettre à jour le mot de passe",
+    "auth.resettingPassword": "Mise à jour en cours...",
     "common.noResults": "Aucun résultat trouvé",
     "common.search": "Rechercher..."
 }

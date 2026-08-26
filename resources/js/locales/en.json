@@ -190,6 +190,18 @@
     "auth.searchCountry": "Search a country...",
     "auth.searchWilaya": "Search a wilaya...",
     "auth.searchCommune": "Search a commune...",
+    "auth.forgotPasswordTitle": "Forgot password?",
+    "auth.forgotPasswordDesc": "Enter your email address to receive a secure password reset link.",
+    "auth.sendResetLinkBtn": "Email password reset link",
+    "auth.sendingResetLink": "Sending reset link...",
+    "auth.backToLogin": "log in",
+    "auth.orReturnToLogin": "Or, return to",
+    "auth.resetPasswordTitle": "Reset password",
+    "auth.resetPasswordDesc": "Please enter your new secure password below.",
+    "auth.newPassword": "New password",
+    "auth.confirmNewPassword": "Confirm new password",
+    "auth.resetPasswordBtn": "Reset password",
+    "auth.resettingPassword": "Resetting password...",
     "common.noResults": "No results found",
     "common.search": "Search..."
 }

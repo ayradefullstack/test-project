@@ -389,7 +389,7 @@ function handlePhoneInput(event: Event) {
                         dir="ltr"
                         autocomplete="tel"
                         name="phone"
-                        :placeholder="isAlgeria ? '05 49 02 04 55' : '06 12 34 56 78'"
+                        :placeholder="isAlgeria ? '05 12 34 56 78' : '06 12 34 56 78'"
                         @input="handlePhoneInput"
                         class="h-10.5 flex-1 bg-transparent px-3.5 text-sm text-foreground placeholder:text-muted-foreground font-mono text-left focus:outline-none"
                     />
@@ -433,7 +433,7 @@ function handlePhoneInput(event: Event) {
                         name="password"
                         placeholder="••••••••"
                         :passwordrules="passwordRules"
-                        class="input-premium h-10.5 text-sm"
+                        class="input-premium h-10.5 text-sm ps-8"
                     />
                     <InputError :message="errors.password" />
                 </div>
@@ -451,7 +451,7 @@ function handlePhoneInput(event: Event) {
                         name="password_confirmation"
                         placeholder="••••••••"
                         :passwordrules="passwordRules"
-                        class="input-premium h-10.5 text-sm"
+                        class="input-premium h-10.5 text-sm ps-8"
                     />
                     <InputError :message="errors.password_confirmation" />
                 </div>
