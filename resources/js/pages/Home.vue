@@ -23,6 +23,7 @@ import {
 } from '@lucide/vue';
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import FullscreenPreloader from '@/components/public/FullscreenPreloader.vue';
 import { register, login } from '@/routes';
 
 const { t } = useI18n();

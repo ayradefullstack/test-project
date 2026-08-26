@@ -101,4 +101,9 @@ class Country extends Model
     {
         return $query->where('is_visible', true);
     }
+
+    public function scopeDz(Builder $query)
+    {
+        return $query->where('alpha2', 'DZ');
+    }
 }

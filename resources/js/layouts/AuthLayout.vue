@@ -8,6 +8,7 @@ import {
     CheckCircle2 
 } from '@lucide/vue';
 import { useI18n } from 'vue-i18n';
+import FullscreenPreloader from '@/components/public/FullscreenPreloader.vue';
 import LanguageSwitcher from '@/components/public/LanguageSwitcher.vue';
 import OrgLogo from '@/components/public/OrgLogo.vue';
 import ThemeToggle from '@/components/public/ThemeToggle.vue';
@@ -22,6 +23,9 @@ defineProps<{
 </script>
 
 <template>
+    <!-- Fullscreen ONDA Logo & Orbital Spinner Loading Screen -->
+    <FullscreenPreloader :min-duration="650" />
+
     <div class="relative min-h-screen bg-background text-foreground flex flex-col justify-between selection:bg-onda-blue-600 selection:text-white">
         
         <!-- TOP UTILITY BAR (Floating above both columns) -->

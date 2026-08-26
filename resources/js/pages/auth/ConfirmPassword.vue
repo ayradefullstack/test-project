@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
+import { ShieldCheck, Lock, CheckCircle2 } from '@lucide/vue';
+import { useI18n } from 'vue-i18n';
 import {
     index as confirmOptions,
     store as confirmStore,
@@ -12,28 +14,38 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { store } from '@/routes/password/confirm';
 
-defineOptions({
-    layout: {
-        title: 'Confirm password',
-        description:
-            'This is a secure area of the application. Please confirm your password before continuing.',
-    },
-});
+const { t } = useI18n();
 </script>
 
 <template>
-    <Head title="Confirm password" />
+    <Head :title="t('auth.confirmPasswordTitle')" />
 
+    <!-- Header Section -->
+    <div class="mb-7 space-y-2 text-center lg:text-start">
+        <div class="inline-flex items-center gap-2 rounded-full border border-onda-teal-500/30 bg-onda-teal-500/10 px-3 py-1 text-xs font-semibold text-onda-teal-600 dark:text-onda-teal-300 mb-2">
+            <Lock class="size-3.5" />
+            <span>{{ t('auth.securePortal') }}</span>
+        </div>
+        <h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            {{ t('auth.confirmPasswordTitle') }}
+        </h1>
+        <p class="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+            {{ t('auth.confirmPasswordDesc') }}
+        </p>
+    </div>
+
+    <!-- Passkey Confirmation Component -->
     <PasskeyVerify
         :routes="{
             options: confirmOptions(),
             submit: confirmStore(),
         }"
-        label="Confirm with passkey"
-        loading-label="Confirming..."
-        separator="Or confirm with password"
+        :label="t('auth.confirmWithPasskey')"
+        :loading-label="t('auth.confirmingPassword')"
+        :separator="t('auth.orConfirmWithPassword')"
     />
 
+    <!-- Password Confirmation Form -->
     <Form
         v-bind="store.form()"
         reset-on-success
@@ -41,27 +53,40 @@ defineOptions({
     >
         <div class="space-y-6">
             <div class="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <PasswordInput
-                    id="password"
-                    name="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="current-password"
-                    autofocus
-                />
+                <div class="flex items-center justify-between">
+                    <Label for="password" class="text-xs sm:text-sm font-semibold text-foreground">
+                        {{ t('auth.password') }}
+                    </Label>
+                    <span class="text-[11px] text-muted-foreground font-mono">
+                        (LTR)
+                    </span>
+                </div>
+
+                <div class="relative">
+                    <PasswordInput
+                        id="password"
+                        name="password"
+                        dir="ltr"
+                        class="h-11 block w-full rounded-xl border border-input bg-background/50 px-3.5 text-left font-mono text-sm text-foreground shadow-xs transition-all duration-200 focus:border-onda-blue-500 focus:bg-background focus:ring-4 focus:ring-onda-blue-500/15 focus:outline-none input-premium"
+                        required
+                        autocomplete="current-password"
+                        autofocus
+                    />
+                </div>
 
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="flex items-center">
+            <div class="flex items-center pt-2">
                 <Button
-                    class="w-full"
+                    type="submit"
+                    class="h-12 w-full rounded-xl bg-gradient-to-r from-onda-blue-600 to-onda-blue-700 hover:from-onda-blue-700 hover:to-onda-blue-800 text-sm font-semibold text-white shadow-lg shadow-onda-blue-600/25 transition-all hover:shadow-onda-blue-600/40 hover:-translate-y-0.5 active:translate-y-0 dark:from-onda-blue-500 dark:to-onda-blue-600 dark:hover:from-onda-blue-400 dark:hover:to-onda-blue-500 cursor-pointer"
                     :disabled="processing"
                     data-test="confirm-password-button"
                 >
-                    <Spinner v-if="processing" />
-                    Confirm password
+                    <Spinner v-if="processing" class="me-2 size-4 text-white" />
+                    <ShieldCheck v-else class="me-2 size-4" />
+                    <span>{{ processing ? t('auth.confirmingPassword') : t('auth.confirmPasswordBtn') }}</span>
                 </Button>
             </div>
         </div>

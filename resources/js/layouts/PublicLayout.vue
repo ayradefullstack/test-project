@@ -15,6 +15,7 @@ import {
 } from '@lucide/vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import FullscreenPreloader from '@/components/public/FullscreenPreloader.vue';
 import LanguageSwitcher from '@/components/public/LanguageSwitcher.vue';
 import OrgLogo from '@/components/public/OrgLogo.vue';
 import ThemeToggle from '@/components/public/ThemeToggle.vue';
@@ -40,6 +41,9 @@ const mobileMenuOpen = ref(false);
 </script>
 
 <template>
+    <!-- Fullscreen ONDA Logo & Orbital Spinner Loading Screen -->
+    <FullscreenPreloader :min-duration="700" />
+
     <a
         href="#main-content"
         class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:start-4 focus:z-50 focus:rounded-md focus:bg-onda-blue-600 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"

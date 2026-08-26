@@ -1,5 +1,6 @@
 import { createInertiaApp, router } from '@inertiajs/vue3';
 import { initializeTheme } from '@/composables/useAppearance';
+import { initializeGlobalLoader } from '@/composables/useGlobalLoader';
 import { applyLocale, createAppI18n, FALLBACK_LOCALE, SUPPORTED_LOCALES } from '@/i18n';
 import AppLayout from '@/layouts/AppLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
@@ -24,7 +25,7 @@ createInertiaApp({
         }
     },
     progress: {
-        color: '#4B5563',
+        color: '#1C9976',
     },
     withApp(app, { page }) {
         const locale = SUPPORTED_LOCALES.includes(page.props.locale)
@@ -51,5 +52,9 @@ createInertiaApp({
 // This will set light / dark mode on page load...
 initializeTheme();
 
+// Listen for global Inertia requests and show ONDA loading screen...
+initializeGlobalLoader();
+
 // This will listen for flash toast data from the server...
 initializeFlashToast();
+
