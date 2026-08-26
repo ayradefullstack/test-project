@@ -16,6 +16,12 @@ Route::prefix('{locale}')
         Route::inertia('/', 'Home')->name('home');
     });
 
+Route::get('/api/wilayas/{wilaya}/communes', function (\App\Models\Wilaya $wilaya) {
+    return response()->json(
+        $wilaya->communes()->active()->visible()->orderBy('name_fr')->get(['id', 'wilaya_id', 'post_code', 'name_fr', 'name_ar'])
+    );
+})->name('api.wilayas.communes');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
 });

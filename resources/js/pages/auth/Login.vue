@@ -26,6 +26,16 @@ defineProps<{
 <template>
     <Head :title="t('auth.loginTitle')" />
 
+    <!-- Card Header -->
+    <div class="mb-8 space-y-2 text-center lg:text-start">
+        <h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            {{ t('auth.loginTitle') }}
+        </h1>
+        <p class="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+            {{ t('auth.loginDesc') }}
+        </p>
+    </div>
+
     <!-- Status Notice (e.g. after password reset) -->
     <div
         v-if="status"
@@ -62,9 +72,10 @@ defineProps<{
                         required
                         autofocus
                         :tabindex="1"
+                        dir="ltr"
                         autocomplete="email"
                         placeholder="author@onda.dz"
-                        class="h-11 rounded-xl border-input bg-background ps-4 pe-4 text-sm focus:border-onda-blue-600 focus:ring-2 focus:ring-onda-blue-600/20 transition-all"
+                        class="input-premium h-11 ps-4 pe-4 text-sm text-left"
                     />
                 </div>
                 <InputError :message="errors.email" />
@@ -92,7 +103,7 @@ defineProps<{
                     :tabindex="2"
                     autocomplete="current-password"
                     :placeholder="t('auth.passwordPlaceholder')"
-                    class="h-11 rounded-xl border-input bg-background text-sm focus:border-onda-blue-600 focus:ring-2 focus:ring-onda-blue-600/20 transition-all"
+                    class="input-premium h-11 text-sm"
                 />
                 <InputError :message="errors.password" />
             </div>
@@ -108,7 +119,7 @@ defineProps<{
             <!-- Submit Button (ONDA Royal Blue) -->
             <Button
                 type="submit"
-                class="mt-3 h-12 w-full rounded-xl bg-onda-blue-600 text-sm font-semibold text-white shadow-lg shadow-onda-blue-600/25 transition-all hover:bg-onda-blue-700 hover:shadow-onda-blue-600/40 dark:bg-onda-blue-500 dark:hover:bg-onda-blue-400 cursor-pointer"
+                class="mt-3 h-12 w-full rounded-xl bg-gradient-to-r from-onda-blue-600 to-onda-blue-700 hover:from-onda-blue-700 hover:to-onda-blue-800 text-sm font-semibold text-white shadow-lg shadow-onda-blue-600/25 transition-all hover:shadow-onda-blue-600/40 hover:-translate-y-0.5 active:translate-y-0 dark:from-onda-blue-500 dark:to-onda-blue-600 dark:hover:from-onda-blue-400 dark:hover:to-onda-blue-500 cursor-pointer"
                 :tabindex="4"
                 :disabled="processing"
                 data-test="login-button"
@@ -123,7 +134,7 @@ defineProps<{
 
         <!-- Register Link -->
         <div class="mt-4 border-t border-border pt-5 text-center text-xs text-muted-foreground">
-            <span>{{ t('auth.noAccount') }} </span>
+            <span>{{ t('auth.noAccount') }}&nbsp;</span>
             <TextLink 
                 :href="register()" 
                 class="font-semibold text-onda-teal-600 hover:text-onda-teal-700 dark:text-onda-teal-400"

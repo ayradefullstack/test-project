@@ -43,10 +43,10 @@ defineProps<{
         </header>
 
         <!-- MAIN SPLIT GRID -->
-        <div class="relative z-20 mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 items-center gap-8 px-4 pb-12 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+        <div class="relative z-20 mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 items-center gap-10 px-4 py-6 sm:px-6 lg:grid-cols-12 lg:gap-14 xl:gap-18 lg:px-8">
             
             <!-- LEFT (LTR) / RIGHT (RTL): INSTITUTIONAL SHOWCASE PANEL -->
-            <div class="hidden lg:col-span-6 lg:flex flex-col justify-between rounded-3xl border border-slate-800/60 bg-gradient-to-br from-onda-blue-950 via-onda-blue-900 to-onda-teal-950 p-10 text-white shadow-2xl relative overflow-hidden min-h-[580px]">
+            <div class="hidden lg:col-span-5 xl:col-span-5 lg:flex flex-col justify-between rounded-3xl border border-slate-800/60 bg-gradient-to-br from-onda-blue-950 via-onda-blue-900 to-onda-teal-950 p-10 text-white shadow-2xl relative overflow-hidden min-h-[620px]">
                 
                 <!-- Ambient Glow & Watermark -->
                 <div class="pointer-events-none absolute -top-24 -end-24 size-80 rounded-full bg-onda-teal-500/15 blur-3xl" />
@@ -105,9 +105,9 @@ defineProps<{
             </div>
 
             <!-- RIGHT (LTR) / LEFT (RTL): AUTH CARD -->
-            <div class="lg:col-span-6 flex justify-center">
-                <div class="w-full max-w-md">
-                    <div class="relative rounded-3xl border border-border bg-card p-7 sm:p-10 shadow-xl dark:shadow-2xl">
+            <div class="lg:col-span-7 xl:col-span-7 flex justify-center">
+                <div class="w-full max-w-[560px]">
+                    <div class="relative rounded-3xl border border-border/80 bg-card p-7 sm:p-9 lg:p-11 shadow-xl dark:shadow-2xl dark:border-slate-800/80 backdrop-blur-xs transition-all">
                         
                         <!-- Mobile Brand Logo -->
                         <div class="mb-6 flex justify-center lg:hidden">
@@ -116,13 +116,13 @@ defineProps<{
                             </Link>
                         </div>
 
-                        <!-- Card Header -->
-                        <div class="mb-8 space-y-2 text-center lg:text-start">
+                        <!-- Card Header (if passed via layout props) -->
+                        <div v-if="title" class="mb-8 space-y-2 text-center lg:text-start">
                             <h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                                {{ title || t('auth.loginTitle') }}
+                                {{ title }}
                             </h1>
-                            <p class="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                                {{ description || t('auth.loginDesc') }}
+                            <p v-if="description" class="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                                {{ description }}
                             </p>
                         </div>
 

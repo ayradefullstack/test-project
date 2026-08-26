@@ -216,3 +216,67 @@
         @apply bg-background text-foreground;
     }
 }
+
+/* Premium Animated Border & Focus System for Inputs & Selects */
+.input-premium {
+    @apply transition-all duration-300 ease-out rounded-xl border border-input bg-background shadow-xs;
+}
+
+.input-premium:hover:not(:disabled) {
+    border-color: rgba(75, 164, 213, 0.6);
+    box-shadow: 0 0 14px -2px rgba(27, 102, 157, 0.16);
+    transform: translateY(-0.5px);
+}
+
+.input-premium:focus,
+.input-premium:focus-visible,
+.input-premium:focus-within {
+    border-color: #1B669D !important;
+    outline: none !important;
+    box-shadow: 0 0 0 4px rgba(27, 102, 157, 0.18), 0 0 20px -2px rgba(27, 102, 157, 0.3) !important;
+    transform: translateY(-1px);
+}
+
+.dark .input-premium:hover:not(:disabled) {
+    border-color: rgba(140, 187, 224, 0.6);
+    box-shadow: 0 0 16px -2px rgba(140, 187, 224, 0.2);
+}
+
+.dark .input-premium:focus,
+.dark .input-premium:focus-visible,
+.dark .input-premium:focus-within {
+    border-color: #8cbbe0 !important;
+    box-shadow: 0 0 0 4px rgba(140, 187, 224, 0.22), 0 0 22px -2px rgba(140, 187, 224, 0.35) !important;
+}
+
+.input-premium-teal {
+    @apply transition-all duration-300 ease-out rounded-xl border border-input bg-background shadow-xs;
+}
+
+.input-premium-teal:hover:not(:disabled) {
+    border-color: rgba(69, 206, 170, 0.6);
+    box-shadow: 0 0 14px -2px rgba(28, 153, 118, 0.16);
+    transform: translateY(-0.5px);
+}
+
+.input-premium-teal:focus,
+.input-premium-teal:focus-visible,
+.input-premium-teal:focus-within {
+    border-color: #1C9976 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 4px rgba(28, 153, 118, 0.18), 0 0 20px -2px rgba(28, 153, 118, 0.3) !important;
+    transform: translateY(-1px);
+}
+
+.dark .input-premium-teal:hover:not(:disabled) {
+    border-color: rgba(69, 206, 170, 0.6);
+    box-shadow: 0 0 16px -2px rgba(69, 206, 170, 0.2);
+}
+
+.dark .input-premium-teal:focus,
+.dark .input-premium-teal:focus-visible,
+.dark .input-premium-teal:focus-within {
+    border-color: #45CEAA !important;
+    box-shadow: 0 0 0 4px rgba(69, 206, 170, 0.22), 0 0 22px -2px rgba(69, 206, 170, 0.35) !important;
+}
+

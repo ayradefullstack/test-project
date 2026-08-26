@@ -24,8 +24,9 @@ defineExpose({
     <div class="relative">
         <Input
             ref="inputRef"
+            dir="ltr"
             :type="showPassword ? 'text' : 'password'"
-            :class="cn('pe-10', props.class)"
+            :class="cn('pe-10 text-left font-mono tracking-wider', props.class)"
             v-bind="$attrs"
         />
         <button

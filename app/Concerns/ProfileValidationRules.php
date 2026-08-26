@@ -16,7 +16,10 @@ trait ProfileValidationRules
     protected function profileRules(?int $userId = null): array
     {
         return [
-            'name' => $this->nameRules(),
+            'first_name' => ['sometimes', 'nullable', 'string', 'max:120'],
+            'last_name' => ['sometimes', 'nullable', 'string', 'max:120'],
+            'name' => ['sometimes', 'nullable', 'string', 'max:255'],
+            'phone' => ['sometimes', 'nullable', 'string', 'max:30'],
             'email' => $this->emailRules($userId),
         ];
     }

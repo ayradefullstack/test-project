@@ -69,6 +69,8 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::registerView(fn () => Inertia::render('auth/Register', [
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
+            'countries' => \App\Models\Country::active()->visible()->orderByRaw("CASE WHEN alpha2 = 'DZ' THEN 0 ELSE 1 END, name ASC")->get(['id', 'alpha2', 'name', 'native_name', 'arabic_name', 'phone_code', 'flag_url']),
+            'wilayas' => \App\Models\Wilaya::active()->visible()->orderBy('code')->get(['id', 'code', 'name_fr', 'name_ar', 'country_id']),
         ]));
 
         Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/TwoFactorChallenge'));
