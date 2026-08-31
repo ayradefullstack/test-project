@@ -81,7 +81,7 @@ const { t, locale } = useI18n();
         <!-- Return to Login Link -->
         <div class="mt-2 text-center text-xs text-muted-foreground flex items-center justify-center gap-1.5">
             <span>{{ t('auth.orReturnToLogin') }}</span>
-            <TextLink :href="login({ locale })" class="font-semibold text-onda-blue-600 hover:underline dark:text-onda-blue-400">
+            <TextLink :href="login()" class="font-semibold text-onda-blue-600 hover:underline dark:text-onda-blue-400">
                 {{ t('auth.backToLogin') }}
             </TextLink>
         </div>
