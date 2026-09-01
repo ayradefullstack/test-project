@@ -19,9 +19,10 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             WilayaSeeder::class,
             CommuneSeeder::class,
+            RoleAndUserSeeder::class,
         ]);
 
-        User::firstOrCreate(
+        $testUser = User::firstOrCreate(
             ['email' => 'test@example.com'],
             [
                 'name' => 'Test User',
@@ -30,5 +31,6 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]
         );
+        $testUser->assignRole('author');
     }
 }

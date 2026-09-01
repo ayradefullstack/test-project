@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LocaleController;
 use App\Http\Middleware\SetLocale;
+use App\Models\Wilaya;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/'.SetLocale::FALLBACK_LOCALE);
@@ -16,14 +17,18 @@ Route::prefix('{locale}')
         Route::inertia('/', 'Home')->name('home');
     });
 
-Route::get('/api/wilayas/{wilaya}/communes', function (\App\Models\Wilaya $wilaya) {
+Route::get('/api/wilayas/{wilaya}/communes', function (Wilaya $wilaya) {
     return response()->json(
         $wilaya->communes()->active()->visible()->orderBy('name_fr')->get(['id', 'wilaya_id', 'post_code', 'name_fr', 'name_ar'])
     );
 })->name('api.wilayas.communes');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:author'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+});
+
+Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::inertia('dashboard', 'admin/Dashboard')->name('dashboard');
 });
 
 if (app()->environment('local')) {
