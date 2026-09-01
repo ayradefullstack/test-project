@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property int $id
@@ -37,17 +38,17 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property Carbon|null $updated_at
  */
 #[Fillable([
-    'name', 
-    'first_name', 
-    'last_name', 
-    'first_name_ar', 
-    'last_name_ar', 
-    'email', 
-    'country_id', 
-    'wilaya_id', 
-    'commune_id', 
-    'city', 
-    'phone', 
+    'name',
+    'first_name',
+    'last_name',
+    'first_name_ar',
+    'last_name_ar',
+    'email',
+    'country_id',
+    'wilaya_id',
+    'commune_id',
+    'city',
+    'phone',
     'password'
 ])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
@@ -55,7 +56,7 @@ class User extends Authenticatable implements PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
-
+    use HasRoles;
     /**
      * Get the attributes that should be cast.
      *
